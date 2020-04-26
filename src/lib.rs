@@ -284,7 +284,7 @@ impl From<Header> for HeaderExport {
 #[wasm_bindgen]
 pub fn parse_pe(bytes: &[u8]) -> Option<HeaderExport> {
     if let Ok(Object::PE(pe)) = Object::parse(&bytes) {
-        Some(HeaderExport::from(pe.header.into()))
+        Some(pe.header.into())
     } else {
         None
     }

@@ -7,7 +7,7 @@ use goblin::pe::optional_header::{StandardFields, WindowsFields, OptionalHeader}
 use goblin::pe::data_directories::{DataDirectory, DataDirectories};
 use serde::Serialize;
 use goblin::pe::section_table::SectionTable;
-use wasm_bindgen::__rt::core::str::from_utf8;
+use std::str::from_utf8;
 
 #[wasm_bindgen]
 #[derive(Copy, Clone)]
@@ -284,7 +284,7 @@ impl From<Header> for HeaderExport {
 #[wasm_bindgen]
 pub fn parse_pe(bytes: &[u8]) -> Option<HeaderExport> {
     if let Ok(Object::PE(pe)) = Object::parse(&bytes) {
-        Some(HeaderExport::from(pe.header))
+        Some(HeaderExport::from(pe.header.into()))
     } else {
         None
     }
